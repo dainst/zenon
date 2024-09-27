@@ -1,0 +1,10 @@
+<?php if (!empty($this->authors)): ?><?=$this->escapeHtml($this->authors)?> <?php endif; ?>
+<span style="font-style:italic;">&nbsp;<?= $this->escapeHtml($this->title)?></span>, in:
+<span style="font-style:italic;">
+    <?=$this->escapeHtml($this->journal)?>
+    <?php if (!empty($this->volume)): ?>, <?=$this->escapeHtml($this->volume)?><?php endif; ?>
+</span>
+<?php if (!empty($this->issue)): ?>(<?=$this->escapeHtml($this->issue)?>)<?php endif; ?>
+<?php if (!empty($this->volume) || !empty($this->issue)): ?>, <?php endif; ?>
+<?php if (!empty($this->pubPlace)) : ?> (<?= $this->escapeHtml($this->pubPlace) ?>)<?php endif; ?>
+<?php if (!empty($this->pageRange)): ?>, <?= $this->escapeHtml($this->pageRange) ?><?php endif; ?>

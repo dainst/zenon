@@ -1,0 +1,29 @@
+<?php if (count($searchTabs) > 0): ?>
+
+<div class="btn-group">
+  <button type="button" class="btn btn-default dropdown-toggle"
+  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span class="caret"></span> 
+    <?php foreach ($searchTabs as $tab): ?>
+      <?php if($tab['selected']): ?>
+            <?= $this->transEsc($tab['label']); ?>
+      <?php endif ?>
+    <?php endforeach; ?> <i class="fa fa-eye" aria-hidden="true"></i>
+  </button>
+  <ul class="dropdown-menu">
+    <?php foreach ($searchTabs as $tab): ?>
+      <?php if($tab['selected']): ?>
+        <li>
+          <a> <?= $this->transEsc($tab['label']); ?> <i class="fa fa-eye" aria-hidden="true"></i></a>
+        </li>
+      <?php else: ?>
+        <li>
+          <a href="<?= $this->escapeHtmlAttr($tab['url']);?>">
+            <?= $this->transEsc($tab['label']); ?>
+          </a>
+        </li>
+      <?php endif ?>
+    <?php endforeach; ?>
+  </ul>
+</div>
+<?php endif; ?>

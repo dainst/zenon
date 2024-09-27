@@ -1,0 +1,53 @@
+<?php
+    // Set page title.
+    $this->headTitle('Access: ' . $this->driver->getBreadcrumb());
+
+    // Grab clean ISBN for convenience:
+    $isbn = $this->driver->getCleanISBN();
+
+    // Activate Syndetics Plus if necessary:
+    if ($this->syndeticsPlus()->isActive()) {
+        $this->headScript()->appendFile($this->syndeticsPlus()->getScript());
+    }
+?>
+<table class="table table-striped" summary="<?=$this->transEsc('Description')?>">
+  <?php $access = $this->driver->getAccessRestrictions(); if (!empty($access)): ?>
+    <?php $contentDisplayed = true; ?>
+    <tr>
+      <th><?=$this->transEsc('Access')?>: </th>
+      <td>
+        <?php foreach ($access as $field): ?>
+          <?=$this->escapeHtml($field)?><br/>
+        <?php endforeach; ?>
+      </td>
+    </tr>
+  <?php endif; ?>
+
+  <?php $usage = $this->driver->getUsageTerms(); if (!empty($access)): ?>
+    <?php $contentDisplayed = true; ?>
+    <tr>
+      <th><?=$this->transEsc('Terms Governing Use and Reproduction Note')?>: </th>
+      <td>
+        <?php foreach ($usage as $field): ?>
+          <?=$this->escapeHtml($field)?><br/>
+        <?php endforeach; ?>
+      </td>
+    </tr>
+  <?php endif; ?>
+
+  <?php $copyright = $this->driver->getCopyrightStatus(); if (!empty($access)): ?>
+    <?php $contentDisplayed = true; ?>
+    <tr>
+      <th><?=$this->transEsc('Copyright Status')?>: </th>
+      <td>
+        <?php foreach ($copyright as $field): ?>
+          <?=$this->escapeHtml($field)?><br/>
+        <?php endforeach; ?>
+      </td>
+    </tr>
+  <?php endif; ?>
+
+  <?php if (!isset($contentDisplayed) || !$contentDisplayed): // Avoid errors if there were no rows above ?>
+    <tr><td><?=$this->transEsc('No Access Information')?></td></tr>
+  <?php endif; ?>
+</table>

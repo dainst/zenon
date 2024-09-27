@@ -1,0 +1,5 @@
+<?php if (!empty($this->authors)): ?><?=$this->escapeHtml($this->authors)?><?php endif; ?>
+<span style="font-style:italic;">&nbsp;<?=$this->escapeHtml($this->title)?></span><?php if (!empty($this->hostItemInformation)): ?>, <?= $this->hostItemInformation ?><?php endif; ?>
+<?php if(!empty($this->titleSection)): ?>, <?= $this->titleSection ?><?php endif; ?>
+<?php if (!empty($this->series)): ?>, <?= $this->escapeHtml($this->series)?> <?php endif; ?>
+<?php if (!empty($this->pubPlace)) : ?> (<?= $this->escapeHtml($this->pubPlace) ?>) <?php endif; ?>

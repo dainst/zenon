@@ -1,0 +1,213 @@
+<?php
+    // Set page title.
+    $this->headTitle($this->translate('Description') . ': ' . $this->driver->getBreadcrumb());
+
+    // Grab clean ISBN for convenience:
+    $isbn = $this->driver->getCleanISBN();
+
+    // Activate Syndetics Plus if necessary:
+    if ($this->syndeticsPlus()->isActive()) {
+        $this->headScript()->appendFile($this->syndeticsPlus()->getScript());
+    }
+?>
+<table class="table table-striped" summary="<?=$this->transEsc('Description')?>">
+  <?php $summ = $this->driver->getSummary(); if (!empty($summ)): ?>
+    <?php $contentDisplayed = true; ?>
+    <tr valign="top">
+      <th><?=$this->transEsc('Summary')?>: </th>
+      <td>
+        <?php foreach ($summ as $field): ?>
+          <?=$this->escapeHtml($field)?><br/>
+        <?php endforeach; ?>
+      </td>
+    </tr>
+  <?php endif; ?>
+
+  <?php $dateSpan = $this->driver->getDateSpan(); if (!empty($dateSpan)): ?>
+    <?php $contentDisplayed = true; ?>
+    <tr valign="top">
+      <th><?=$this->transEsc('Published')?>: </th>
+      <td>
+        <?php foreach ($dateSpan as $field): ?>
+          <?=$this->escapeHtml($field)?><br/>
+        <?php endforeach; ?>
+      </td>
+    </tr>
+  <?php endif; ?>
+
+  <?php $notes = $this->driver->getGeneralNotes(); if (!empty($notes)): ?>
+    <?php $contentDisplayed = true; ?>
+    <tr valign="top">
+      <th><?=$this->transEsc('Item Description')?>: </th>
+      <td>
+        <?php foreach ($notes as $field): ?>
+          <?=$this->escapeHtml($field)?><br/>
+        <?php endforeach; ?>
+      </td>
+    </tr>
+  <?php endif; ?>
+
+  <?php $freq = $this->driver->getPublicationFrequency(); if (!empty($freq)): ?>
+    <?php $contentDisplayed = true; ?>
+    <tr valign="top">
+      <th><?=$this->transEsc('Publication Frequency')?>: </th>
+      <td>
+        <?php foreach ($freq as $field): ?>
+          <?=$this->escapeHtml($field)?><br/>
+        <?php endforeach; ?>
+      </td>
+    </tr>
+  <?php endif; ?>
+
+  <?php $playTime = $this->driver->getPlayingTimes(); if (!empty($playTime)): ?>
+    <?php $contentDisplayed = true; ?>
+    <tr valign="top">
+      <th><?=$this->transEsc('Playing Time')?>: </th>
+      <td>
+        <?php foreach ($playTime as $field): ?>
+          <?=$this->escapeHtml($field)?><br/>
+        <?php endforeach; ?>
+      </td>
+    </tr>
+  <?php endif; ?>
+
+  <?php $system = $this->driver->getSystemDetails(); if (!empty($system)): ?>
+    <?php $contentDisplayed = true; ?>
+    <tr valign="top">
+      <th><?=$this->transEsc('Format')?>: </th>
+      <td>
+        <?php foreach ($system as $field): ?>
+          <?=$this->escapeHtml($field)?><br/>
+        <?php endforeach; ?>
+      </td>
+    </tr>
+  <?php endif; ?>
+
+  <?php $audience = $this->driver->getTargetAudienceNotes(); if (!empty($audience)): ?>
+    <?php $contentDisplayed = true; ?>
+    <tr valign="top">
+      <th><?=$this->transEsc('Audience')?>: </th>
+      <td>
+        <?php foreach ($audience as $field): ?>
+          <?=$this->escapeHtml($field)?><br/>
+        <?php endforeach; ?>
+      </td>
+    </tr>
+  <?php endif; ?>
+
+  <?php $awards = $this->driver->getAwards(); if (!empty($awards)): ?>
+    <?php $contentDisplayed = true; ?>
+    <tr valign="top">
+      <th><?=$this->transEsc('Awards')?>: </th>
+      <td>
+        <?php foreach ($awards as $field): ?>
+          <?=$this->escapeHtml($field)?><br/>
+        <?php endforeach; ?>
+      </td>
+    </tr>
+  <?php endif; ?>
+
+  <?php $credits = $this->driver->getProductionCredits(); if (!empty($credits)): ?>
+    <?php $contentDisplayed = true; ?>
+    <tr valign="top">
+      <th><?=$this->transEsc('Production Credits')?>: </th>
+      <td>
+        <?php foreach ($credits as $field): ?>
+          <?=$this->escapeHtml($field)?><br/>
+        <?php endforeach; ?>
+      </td>
+    </tr>
+  <?php endif; ?>
+
+  <?php $bib = $this->driver->getBibliographyNotes(); if (!empty($bib)): ?>
+    <?php $contentDisplayed = true; ?>
+    <tr valign="top">
+      <th><?=$this->transEsc('Bibliography')?>: </th>
+      <td>
+        <?php foreach ($bib as $field): ?>
+          <?=$this->escapeHtml($field)?><br/>
+        <?php endforeach; ?>
+      </td>
+    </tr>
+  <?php endif; ?>
+
+  <?php $isbns = $this->driver->getISBNs(); if (!empty($isbns)): ?>
+    <?php $contentDisplayed = true; ?>
+    <tr valign="top">
+      <th><?=$this->transEsc('ISBN')?>: </th>
+      <td>
+        <?php foreach ($isbns as $field): ?>
+          <?=$this->escapeHtml($field)?><br/>
+        <?php endforeach; ?>
+      </td>
+    </tr>
+  <?php endif; ?>
+
+  <?php $issns = $this->driver->getISSNs(); if (!empty($issns)): ?>
+    <?php $contentDisplayed = true; ?>
+    <tr valign="top">
+      <th><?=$this->transEsc('ISSN')?>: </th>
+      <td>
+        <?php foreach ($issns as $field): ?>
+          <?=$this->escapeHtml($field)?><br/>
+        <?php endforeach; ?>
+      </td>
+    </tr>
+  <?php endif; ?>
+
+  <?php $related = $this->driver->getRelationshipNotes(); if (!empty($related)): ?>
+    <?php $contentDisplayed = true; ?>
+    <tr valign="top">
+      <th><?=$this->transEsc('Related Items')?>: </th>
+      <td>
+        <?php foreach ($related as $field): ?>
+          <?=$this->escapeHtml($field)?><br/>
+        <?php endforeach; ?>
+      </td>
+    </tr>
+  <?php endif; ?>
+
+  <?php $findingAids = $this->driver->getFindingAids(); if (!empty($findingAids)): ?>
+    <?php $contentDisplayed = true; ?>
+    <tr valign="top">
+      <th><?=$this->transEsc('Finding Aid')?>: </th>
+      <td>
+        <?php foreach ($findingAids as $field): ?>
+          <?=$this->escapeHtml($field)?><br/>
+        <?php endforeach; ?>
+      </td>
+    </tr>
+  <?php endif; ?>
+
+  <?php $authorNotes = empty($isbn) ? array() : $this->authorNotes($isbn); if (!empty($authorNotes)): ?>
+    <?php $contentDisplayed = true; ?>
+    <tr valign="top">
+      <th><?=$this->transEsc('Author Notes')?>: </th>
+      <td>
+        <?php foreach ($authorNotes as $provider => $list): ?>
+          <?php foreach ($list as $field): ?>
+            <?=$field['Content']?><br/>
+          <?php endforeach; ?>
+        <?php endforeach; ?>
+      </td>
+    </tr>
+  <?php endif; ?>
+
+  <?php $additionalInfos = $this->driver->getAdditionalInformation(); if (!empty($additionalInfos)): ?>
+    <?php $contentDisplayed = true; ?>
+    <tr valign="top">
+      <th><?=$this->transEsc('Additional Information')?>: </th>
+      <td>
+        <?php foreach ($additionalInfos as $additionalInfo): ?>
+          <?php foreach ($additionalInfo as $value): ?>
+            <?=$this->escapeHtml($value)?><br/>
+          <?php endforeach; ?>
+        <?php endforeach; ?> 
+      </td>
+    </tr>
+  <?php endif; ?>
+
+  <?php if (!isset($contentDisplayed) || !$contentDisplayed): // Avoid errors if there were no rows above ?>
+    <tr><td><?=$this->transEsc('no_description')?></td></tr>
+  <?php endif; ?>
+</table>
