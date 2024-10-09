@@ -13,5 +13,7 @@ into a fresh vufind 10 installation
 `local/config`
 `local/import`
 `local/languages`
+`local/utils`
+`local/harvest`
 `solr/vufind/biblio/conf/schema.xml`
 `solr/vufind/authority/conf/schema.xml`
