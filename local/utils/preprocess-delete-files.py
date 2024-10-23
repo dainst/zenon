@@ -43,7 +43,7 @@ def run(input_files):
         with open(file_path, 'r') as input_file:
             biblio_number = input_file.readline()
 
-            url = "{0}/api/v1/search?lookfor=biblio_no:{1}&type=AllFields".format(server_url, biblio_number)
+            url = "{0}/api/v1/search?lookfor=biblio_no:{1}&type=AllFields".format(server_url, biblio_number.rstrip())
 
             req = urllib.request.Request(url)
 
