@@ -44,6 +44,7 @@ def run(input_files):
             biblio_number = input_file.readline()
 
             url = "{0}/api/v1/search?lookfor=biblio_no:{1}&type=AllFields".format(server_url, biblio_number.rstrip())
+            logger.info(url)
 
             req = urllib.request.Request(url)
 
