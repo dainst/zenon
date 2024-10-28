@@ -77,6 +77,7 @@ def is_record_valid(record):
 
     if check_biblio_no:
         url =  "{0}/api/v1/search?lookfor=biblio_no:{1}&type=AllFields".format(server_url, record['999']['c'])
+        #logger.info(url)
         req = urllib.request.Request(url)
 
         try:
@@ -93,6 +94,7 @@ def is_record_valid(record):
             return (False, "Failed to load {0}.".format(url))
 
         url = "{0}/api/v1/search?lookfor=id:{1}&type=AllFields&field[]=biblioNumber".format(server_url, sys_number)
+        #logger.info(url)
         req = urllib.request.Request(url)
 
         try:
@@ -104,6 +106,7 @@ def is_record_valid(record):
         except Exception as e:
             logger.error(e)
             return (False, "Failed to load {0}.".format(url))
+
     return (True, "")
 
 def extract_parent_ids(sys_number, parents):
@@ -140,7 +143,7 @@ def extract_parent_ids(sys_number, parents):
 def extract_holding_branch_codes(holding_fields):
     holding_branches = []
     for holding in holding_fields:
-        holding_branches.append(holding['b'])
+        holding_branches.append(holding.get('b'))
     return holding_branches
 
 
@@ -159,6 +162,7 @@ def accumulate_ancestor_holdings(sys_number_first, ids, current_depths = 0):
             (parent_ids, holding_branches) = holdings_mapping[id]
         else:
             url = "{1}/Record/{0}/Export?style=MARCXML".format(id, server_url)
+            logger.info(url)
             req = urllib.request.Request(url)
             try:
                 with urllib.request.urlopen(req) as response:
@@ -184,6 +188,7 @@ def add_to_holding_mapping(record):
 
     (valid, _message ) = is_record_valid(record)
     if not valid:
+        logger.error(_message)
         return
 
     sys_number = record['001'].data.strip()
@@ -216,7 +221,7 @@ def preprocess_record(record):
     for holding in holdings:
         for subfield in internal_subfields:
             holding.delete_subfield(subfield)
-
+        '''
         keys = holding.subfields[0::2]
         vals = holding.subfields[1::2]
         subs = dict()
@@ -233,6 +238,7 @@ def preprocess_record(record):
                 # print(holding)
                 # It seems VuFind can not handle empty elements like `<subfield code="D" />` correctly, which will result in broken XML data.
                 holding.delete_subfield(key)
+        '''
 
     # Remove summaries, see SD-1798
     for field in record.get_fields('520'):
@@ -246,9 +252,12 @@ def preprocess_record(record):
 
             record.add_field(
                 pymarc.Field(
-                    '953',
+                    tag='953',
                     indicators=[' ', ' '],
-                    subfields=[ 'b', branch, 'z', "Automatically added holding branch key." ]
+                    subfields=[
+                        pymarc.Subfield(code='b', value=branch),
+                        pymarc.Subfield(code='z', value="Automatically added holding branch key.")
+                    ]
                 )
             )
 
