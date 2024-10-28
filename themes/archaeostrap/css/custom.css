@@ -50,6 +50,11 @@ mark {
 	margin-top: 0;
 }
 
+.navbar-form {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
 .arachne-nav {
   margin-top: 0;
   margin-bottom: 0;
@@ -187,4 +192,12 @@ mark {
 
 .no-result-recommend .authoritybox {
 	padding: 1em;
+}
+
+.sidebar.right h2 {
+	font-size: 20px;
+}
+
+.active-filters .facet, .facet-group .active {
+	background-color: rgba(85, 114, 161, 0.9);
 }
