@@ -475,8 +475,8 @@ class SolrMarc extends \VuFind\RecordDriver\SolrMarc
         $secondary = [];
         $secondaryFields = $this->getMarcReader()->getFields('700');
         foreach($secondaryFields as $field) {
-            if ($field->getSubfield('a')) {
-                array_push($secondary, $field->getSubfield('a')->getData());
+            if ($this->getSubfield($field, 'a')) {
+                array_push($secondary, $this->getSubfield($field, 'a'));
             }
         }
 
@@ -880,12 +880,12 @@ class SolrMarc extends \VuFind\RecordDriver\SolrMarc
         $fields = $this->getMarcReader()->getFields('995');
 
         foreach ($fields as $currentField) {
-            $currentLinkType = $currentField->getSubfield('a')->getData();
+            $currentLinkType = $this->getSubfield($currentField, 'a');
 
             if($linkType == $currentLinkType) {
 
-                $zenonId = $this->zenonConfig->Records->localRecordPrefix . $currentField->getSubfield('b')->getData();
-                $label = $currentField->getSubfield('n')->getData();
+                $zenonId = $this->zenonConfig->Records->localRecordPrefix . $this->getSubfield($currentField, 'b');
+                $label = $this->getSubfield($currentField, 'n');
                 $link = [
                     'id' => $zenonId,
                     'label' => $label,
