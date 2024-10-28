@@ -20,6 +20,11 @@ then
   VUFIND_HOME="/usr/local/vufind"
 fi
 
+if [ -z "$HOST_URL" ]
+then
+  HOST_URL="https://$(hostname -i)"
+fi
+
 today=$(date +"%Y-%m-%d")
 
 if [[ -z "$KOHA_BASE_URL" ]]
@@ -35,7 +40,7 @@ wget "$KOHA_BIBLIO_URL" -P "$VUFIND_HOME/local/harvest/dai-katalog/notpreprocess
 if [[ -s "$VUFIND_HOME/local/harvest/dai-katalog/notpreprocessed/" ]]
 then
     echo "Running VuFind's batch import scripts."
-    python3 "$VUFIND_HOME"/preprocess-marc.py "$VUFIND_HOME/local/harvest/dai-katalog/notpreprocessed/" "$VUFIND_HOME/local/harvest/dai-katalog/" --url "http://$(hostname -i)"
+    python3 "$VUFIND_HOME"/local/utils/preprocess-marc.py "$VUFIND_HOME/local/harvest/dai-katalog/notpreprocessed/" "$VUFIND_HOME/local/harvest/dai-katalog/" --url "$HOST_URL"
     "$VUFIND_HOME"/harvest/batch-import-marc.sh dai-katalog | tee $VUFIND_HOME/local/harvest/dai-katalog/log/import_$today.log
     echo "Done."
 else
