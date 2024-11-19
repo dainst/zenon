@@ -9,6 +9,7 @@ import os
 import urllib
 import re
 import json
+import ssl
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -307,6 +308,7 @@ if __name__ == '__main__':
 
     server_url = options['server_url']
     check_biblio_no = options['check_biblio']
+    ssl._create_default_https_context = ssl._create_unverified_context
 
     try:
         files = [ os.path.join(options['input_file'], file) for file in os.listdir(options['input_file']) if os.path.splitext(file)[1] == '.xml' ]

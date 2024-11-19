@@ -9,6 +9,7 @@ import urllib
 import urllib.request
 import re
 import json
+import ssl
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -69,11 +70,11 @@ def run(input_files):
 
 if __name__ == '__main__':
     global server_url
-    global check_biblio_no
 
     options = vars(parser.parse_args())
 
     server_url = options['server_url']
+    ssl._create_default_https_context = ssl._create_unverified_context
 
     files = [ os.path.join(options['input_directory'], file) for file in os.listdir(options['input_directory']) if os.path.splitext(file)[1] == '.delete' ]
 
