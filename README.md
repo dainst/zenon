@@ -15,5 +15,6 @@ into a fresh vufind 10 installation
 `local/languages`
 `local/utils`
 `local/harvest`
+`local/iDAI.world`
 `solr/vufind/biblio/conf/schema.xml`
 `solr/vufind/authority/conf/schema.xml`
