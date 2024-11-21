@@ -1,18 +1,29 @@
 <?php
 
 namespace Zenon\Controller;
+use VuFindSearch\Command\SearchCommand;
 use VuFindSearch\Query\Query;
 
 class AuthoritySearchHelper
 {
     public static function searchAuthorities($searchService, string $q, $limit = 100, $offset = 0) {
         $query = new Query(self::escapeForSolr($q));
-        return $searchService->search('SolrAuth', $query, $offset, $limit);
+        $command = new SearchCommand(
+            'SolrAuth',
+            $query,
+            $offset,
+            $limit
+        );
+        return $searchService->invoke($command)->getResult();
     }
 
     public static function getAuthorityId($searchService, string $system, string $id){
         $query = new Query($system . ":" . self::escapeForSolr($id));
-        $authoritySearchResults = $searchService->search('SolrAuth', $query)->first();
+        $command = new SearchCommand(
+            'SolrAuth',
+            $query
+        );
+        $authoritySearchResults = $searchService->invoke($command)->getResult()->first();
         if (is_null($authoritySearchResults)) {
             return null;
         }
@@ -20,10 +31,12 @@ class AuthoritySearchHelper
     }
 
     public static function getBibliosForAuthorityId($searchService, $authorityId){
-        return $searchService->search(
-            'Solr', 
-            new Query('authority_id_str_mv:' . self::escapeForSolr($authorityId))
+			  $query = new Query('authority_id_str_mv:' . self::escapeForSolr($authorityId));
+        $command = new SearchCommand(
+            'SolrAuth',
+            $query
         );
+        return $searchService->invoke($command)->getResult();
     }
 
      /**
