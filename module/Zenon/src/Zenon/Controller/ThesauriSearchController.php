@@ -27,7 +27,7 @@
  */
 namespace Zenon\Controller;
 
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use VuFind\Controller\SearchController as VuFindSearchController;
 use VuFind\Exception\RecordMissing as RecordMissingException;
 
@@ -68,7 +68,7 @@ class ThesauriSearchController extends VuFindSearchController
         }
 
         $queryString = urlencode("authority_id_str_mv:" . $authorityId);
-        return $this->redirect()->toUrl('/Search/Results?filter[]=~' . $queryString);
+        return $this->redirect()->toRoute('search-results', [], ['query' => 'filter[]=~' . $queryString]);
     }
 
     /**
