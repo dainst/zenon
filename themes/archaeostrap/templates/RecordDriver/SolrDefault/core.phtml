@@ -305,6 +305,13 @@
         </tr>
       <?php endif; ?>
 
+      <?php $issns = $this->driver->getISSNs(); if (!empty($issns)): ?>
+        <tr>
+          <th><?=$this->transEsc('ISSN')?>: </th>
+          <td><?php foreach ($issns as $issn): ?><?= $this->escapeHtml($issn)?><br/><?php endforeach; ?></td>
+        </tr>
+      <?php endif; ?>
+
       <?php $doi = $this->driver->getCleanDOI(); if (!empty($doi)): ?>
         <tr>
           <th><?=$this->transEsc('DOI')?>: </th>
