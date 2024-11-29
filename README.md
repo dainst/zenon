@@ -7,14 +7,16 @@ of this rule. They both replace the existing `schema.xml`
 Just copy (or create symbolic links) the following directories and files
 into a fresh vufind 10 installation
 
-`import/index_java/src/org/dainst`
-`module/Zenon`
-`themes/archaeostrap`
-`local/config`
-`local/import`
-`local/languages`
-`local/utils`
-`local/harvest`
-`local/iDAI.world`
-`solr/vufind/biblio/conf/schema.xml`
-`solr/vufind/authority/conf/schema.xml`
+```
+import/index_java/src/org/dainst
+module/Zenon
+themes/archaeostrap
+local/config
+local/import
+local/languages
+local/utils
+local/harvest
+local/iDAI.world
+solr/vufind/biblio/conf/schema.xml
+solr/vufind/authority/conf/schema.xml
+```
