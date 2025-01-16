@@ -96,6 +96,11 @@ class Citation extends VufindCitation
             $dai['titleSection'] = $titleSection;
         }
 
+        $languages = $this->driver->tryMethod('getLanguages');
+        if (!empty($languages)) {
+            $dai['languages'] = $languages;
+        }
+
         // Behave differently for books vs. journals:
         $partial = $this->getView()->plugin('partial');
         if (empty($this->details['journal'])) {
