@@ -1,10 +1,12 @@
 <?php
+
 /**
- * Record link view helper
+ * Record linker view helper
  *
- * PHP version 5
+ * PHP version 8
  *
  * Copyright (C) Villanova University 2010.
+ * Copyright (C) The National Library of Finland 2023.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -25,12 +27,16 @@
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://vufind.org/wiki/development Wiki
  */
+
 namespace Zenon\View\Helper\Root;
 
 use VuFindSearch\Command\RetrieveCommand;
 
+use function is_array;
+use function is_string;
+
 /**
- * Record link view helper for Zenon Module
+ * Record linker view helper for Zenon Module
  *
  * @category Zenon
  * @package  View_Helpers
@@ -60,6 +66,7 @@ class RecordLinker extends \VuFind\View\Helper\Root\RecordLinker
         $this->searchService = $searchService;
         parent::__construct($router);
     }
+
     /**
      * Attach a Search Results Plugin Manager connection and related logic to
      * the driver
