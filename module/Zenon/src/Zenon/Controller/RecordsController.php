@@ -28,6 +28,7 @@
  */
 
 namespace Zenon\Controller;
+use VuFind\Controller\RecordsController as VuFindRecordsController;
 
 use Laminas\Form\Element;
 
@@ -40,7 +41,7 @@ use Laminas\Form\Element;
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://vufind.org Main Site
  */
-class RecordsController extends VuFind\Controller\RecordsController
+class RecordsController extends VuFindRecordsController
 {
 
     protected $citationFormats;
