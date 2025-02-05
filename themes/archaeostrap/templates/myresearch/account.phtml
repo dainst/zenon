@@ -10,7 +10,7 @@ $this->layout()->breadcrumbs = '<li><a href="' . $this->url('myresearch-home') .
 
 <form method="post" name="accountForm" id="accountForm" class="form-user-create" data-toggle="validator" role="form">
     <?=$this->auth()->getCreateFields()?>
-    <?=$this->recaptcha()->html($this->useRecaptcha) ?>
+		<?=$this->captcha()->html($this->useCaptcha) ?>
     <!-- Start Zenon specific -->
     <div class="form-group">
         <input id="privacy_read" name="privacy_read" required aria-required="true" value="" type="checkbox">
