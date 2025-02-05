@@ -4,6 +4,7 @@
     }
 
     $marc = $this->driver->tryMethod('getMarcRecord');
+		$marcPhdField = null;
     if (is_object($marc)) {
         $marcPhdField = $marc->getField('502');
     }
