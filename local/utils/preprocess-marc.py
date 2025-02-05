@@ -70,7 +70,7 @@ def is_record_valid(record):
     if not '001' in record:
         return (False, "No system number 001 in https://koha.dainst.de:8443/cgi-bin/koha/catalogue/detail.pl?biblionumber={0}. Returning None record.".format(record['999']['c']))
 
-    sys_number = record['001'].data
+    sys_number = record['001'].data.strip()
 
     matcher = re.fullmatch(valid_zenon_id, sys_number)
     if not matcher:
@@ -163,7 +163,7 @@ def accumulate_ancestor_holdings(sys_number_first, ids, current_depths = 0):
             (parent_ids, holding_branches) = holdings_mapping[id]
         else:
             url = "{1}/Record/{0}/Export?style=MARCXML".format(id, server_url)
-            logger.info(url)
+            #logger.info(url)
             req = urllib.request.Request(url)
             try:
                 with urllib.request.urlopen(req) as response:
@@ -211,7 +211,7 @@ def preprocess_record(record):
         logger.error(message)
         return None
 
-    sys_number = record['001'].data
+    sys_number = record['001'].data.strip()
 
     (parent_ids, holding_branches) = holdings_mapping[sys_number]
     ancestor_holding_branches = accumulate_ancestor_holdings(sys_number, parent_ids)
@@ -272,7 +272,7 @@ def run(file_paths, output_directory):
     logger.info("Creating holding mappings.")
     for file_path in file_paths:
         with open(file_path, 'rb') as input_file:
-            logger.info(file_path)
+            #logger.info(file_path)
             reader = pymarc.parse_xml_to_array(input_file)
 
             for record in reader:
