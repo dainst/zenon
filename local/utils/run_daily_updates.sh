@@ -36,12 +36,12 @@ then
     MACHINE_NAME="Unnamed machine"
 fi
 
-#if egrep --ignore-case 'error|except' "$MARC_UPDATE_LOG" | egrep -v -q 'Completed without errors' ;
-#then
-#    cat "$MARC_UPDATE_LOG" | mail -s "VuFind ($MACHINE_NAME) marc update -- ERROR" -a "From: vufindmailer@dainst.de" "$RECIPIENT"
-#else
-#    cat "$MARC_UPDATE_LOG" | mail -s "VuFind ($MACHINE_NAME) marc update -- SUCCESS" -a "From: vufindmailer@dainst.de" "$RECIPIENT"
-#fi
+if egrep --ignore-case 'error|except' "$MARC_UPDATE_LOG" | egrep -v -q 'Completed without errors' ;
+then
+    cat "$MARC_UPDATE_LOG" | mail -s "VuFind ($MACHINE_NAME) marc update -- ERROR" -a "From: vufindmailer@dainst.de" "$RECIPIENT"
+else
+    cat "$MARC_UPDATE_LOG" | mail -s "VuFind ($MACHINE_NAME) marc update -- SUCCESS" -a "From: vufindmailer@dainst.de" "$RECIPIENT"
+fi
 
 
 #PUBLICATIONS_UPDATE_LOG="$VUFIND_HOME/local/iDAI.world/log/publications_`date +\%Y-\%m-\%d`.log"
