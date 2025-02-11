@@ -4,14 +4,16 @@ After=network.target apache2.service mysql.service
 
 [Service]
 Type=forking
-ExecStart=/bin/sh -l -c '/home/www-data/vufind-10.0/solr.sh start' -x
+WorkingDirectory=/home/www-data/vufind-10.0
+ExecStart=/home/www-data/vufind-10.0/solr.sh start
 PIDFile=/home/www-data/vufind-10.0/solr/vendor/bin/solr-8983.pid
 User=www-data
-ExecStop=/bin/sh -l -c "/home/www-data/vufind-10.0/solr.sh stop" -x
+ExecStop=/home/www-data/vufind-10.0/solr.sh stop
 SuccessExitStatus=0
 LimitNOFILE=65000
 LimitNPROC=65000
-Environment="VUFIND_HOME=/home/www-data/vufind-10.0 SOLR_HEAP=4g"
+Environment="VUFIND_HOME=/home/www-data/vufind-10.0"
+Environment="SOLR_HEAP=4g"
 
 [Install]
 WantedBy=multi-user.target
