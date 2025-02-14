@@ -3,15 +3,15 @@ namespace Zenon\View\Helper\Root;
 
 use DateTime;
 use VuFind\I18n\Translator\TranslatorAwareInterface;
-use Zend\Feed\Writer\Writer as FeedWriter;
-use Zend\Feed\Writer\Feed;
+use Laminas\Feed\Writer\Writer as FeedWriter;
+use Laminas\Feed\Writer\Feed;
 use VuFind\View\Helper\Root\ResultFeed as ParentResultFeed;
 
 class ResultFeed extends ParentResultFeed
 {
-    public function registerExtensions(\Zend\ServiceManager\ServiceManager $sm)
+    public function registerExtensions(ContainerInterface $container)
     {
-        $manager = new \Zend\Feed\Writer\ExtensionPluginManager($sm);
+        $manager = new \Laminas\Feed\Writer\ExtensionPluginManager($container);
         $manager->setInvokableClass(
             'DublinCore\Renderer\Entry',
             'Zenon\Feed\Writer\Extension\DublinCore\Renderer\Entry'
@@ -41,10 +41,10 @@ class ResultFeed extends ParentResultFeed
             empty($title) ? $this->translate('Title not available') : $title
         );
         $serverUrl = $this->getView()->plugin('serverurl');
-        $recordLink = $this->getView()->plugin('recordLink');
+        $recordLinker = $this->getView()->plugin('recordLinker');
         try {
-            $url = $serverUrl($recordLink->getUrl($record));
-        } catch (\Zend\Mvc\Router\Exception\RuntimeException $e) {
+            $url = $serverUrl($recordLinker->getUrl($record));
+        } catch (\Laminas\Router\Exception\RuntimeException $e) {
             // No route defined? See if we can get a URL out of the driver.
             // Useful for web results, among other things.
             $url = $record->tryMethod('getUrl');
@@ -64,7 +64,7 @@ class ResultFeed extends ParentResultFeed
         $formats = $record->tryMethod('getFormats');
         if (is_array($formats)) {
             foreach ($formats as $format) {
-                $entry->addDCFormat($format);
+                $entry->addDCFormat($this->translate($format));
             }
         }
         $dcDate = $this->getDcDate($record);
