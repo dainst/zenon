@@ -25,7 +25,7 @@
  */
 namespace Zenon\Controller;
 
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use VuFind\Controller\SearchController as VuFindSearchController;
 use VuFind\Exception\RecordMissing as RecordMissingException;
 
