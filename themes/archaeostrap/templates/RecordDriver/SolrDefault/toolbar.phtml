@@ -39,9 +39,13 @@
   <?php if(count($exportFormats) > 0): ?>
     <li class="dropdown">
       <a class="export-toggle toolbar-btn dropdown-toggle" data-toggle="dropdown" href="<?=$this->recordLinker()->getActionUrl($this->driver, 'Export')?>"><i class="fa fa-list-alt"></i> <?=$this->transEsc('Export Record') ?></a>
-      <ul class="dropdown-menu" role="menu">
+      <ul class="dropdown-menu" id="export-options" role="menu">
         <?php foreach ($exportFormats as $exportFormat): ?>
-          <li><a <?php if ($this->export()->needsRedirect($exportFormat)): ?>target="<?=$this->escapeHtmlAttr($exportFormat)?>Main" <?php endif; ?>href="<?=$this->recordLinker()->getActionUrl($this->driver, 'Export')?>?style=<?=$this->escapeHtmlAttr($exportFormat)?>"><?=$this->transEsc('Export to')?> <?=$this->transEsc($exportFormat)?></a></li>
+            <li role="none">
+              <a class="dropdown-item" <?php if ($this->export()->needsRedirect($exportFormat)): ?>target="<?=$this->escapeHtmlAttr($exportFormat)?>Main" <?php endif; ?>href="<?=$this->escapeHtmlAttr($this->recordLinker()->getActionUrl($this->driver, 'Export', [], '', ['excludeSearchId' => true]))?>?style=<?=$this->escapeHtmlAttr($exportFormat)?>" rel="nofollow" role="menuitem">
+                <?=$this->transEsc('export_to', ['%%target%%' => $this->translate($this->export()->getLabelForFormat($exportFormat))])?>
+              </a>
+            </li>
         <?php endforeach; ?>
       </ul>
     </li>
